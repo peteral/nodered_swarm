@@ -31,4 +31,4 @@ Content-Type: application/x-www-form-urlencoded
 q=select+*+from+sensor1&db=testdb
 ```
 
-Test flows located in [flows.json](../blob/master/flows.json)
+Test flows located in [flows.json](../master/flows.json)

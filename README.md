@@ -1,7 +1,7 @@
 # nodered
 
 Start:
-```docker compose up```
+```docker-compose up```
 
 Access:
 ```
@@ -30,3 +30,5 @@ Content-Type: application/x-www-form-urlencoded
 
 q=select+*+from+sensor1&db=testdb
 ```
+
+Test flows located in [flows.json](../blob/master/flows.json)

@@ -4,9 +4,9 @@ Start:
 ```docker-compose up```
 
 Access:
-```
-http://localhost
-```
+NodeRed: [http://docker-host]
+Grafana: [http://docker-host:3000]
+
 
 Access mosquitto from nodered:
 ```

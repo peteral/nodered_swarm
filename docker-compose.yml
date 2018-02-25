@@ -9,4 +9,7 @@ services:
                 image: nodered/node-red-docker
                 ports:
                         - "80:1880"
-
+                volumes:
+                        - data:/data
+volumes:
+        data:

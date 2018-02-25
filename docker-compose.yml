@@ -6,10 +6,17 @@ services:
                         - "1883:1883"
                         - "9001:9001"
         nodered:
-                image: nodered/node-red-docker
+                build: ./nodered
                 ports:
                         - "80:1880"
                 volumes:
                         - data:/data
+        influxdb:
+                image: influxdb
+                ports:
+                        - "8086:8086"
+                volumes:
+                        - influxdb:/var/lib/influxdb
 volumes:
         data:
+        influxdb:

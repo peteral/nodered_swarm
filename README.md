@@ -7,4 +7,4 @@ Access:
 ```http://localhost```
 
 Access mosquitto from nodered:
-```nodered_mosquitto_1:1883'''
+```nodered_mosquitto_1:1883```

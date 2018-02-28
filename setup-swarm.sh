@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # ---------------------------------------------------------
 # prerequisites - initialized swarm
 # ---------------------------------------------------------
@@ -30,3 +30,12 @@ docker service create --replicas 1 --name nodered   -p 80:1880                  
 docker service create --replicas 1 --name mosquitto -p 1883:1883 -p 9001:9001   $REGISTRY/eclipse-mosquitto
 docker service create --replicas 1 --name influxdb  -p 8086:8086                $REGISTRY/influxdb
 docker service create --replicas 1 --name grafana   -p 3000:3000                $REGISTRY/grafana/grafana
+
+# create influx database testdb
+curl -X POST 'http://localhost:8086/db?u=root&p=root' -d '{"name" : "testdb"}'
+
+# import grafana dashboard
+export dashboard='{ "dashboard": {' `cat dashboard.json` ' }, "overwrite" : false } '
+curl -X POST 'http://localhost:3000/api/dashboards/db' -H "Content-Type: application/json" -d $dashboard
+
+# import nodered flows

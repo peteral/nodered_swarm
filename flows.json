@@ -1,111 +1,126 @@
-[{
-	"id": "1a0e96ef.e56ed9",
-	"type": "tab",
-	"label": "Sensor to MQTT",
-	"disabled": false,
-	"info": ""
-},
-{
-	"id": "a7084d9a.5fab9",
-	"type": "tab",
-	"label": "MQTT to InfluxDB",
-	"disabled": false,
-	"info": ""
-},
-{
-	"id": "be155f99.763df",
-	"type": "mqtt-broker",
-	"z": "",
-	"name": "nodered_mosquitto_1",
-	"broker": "nodered_mosquitto_1",
-	"port": "1883",
-	"clientid": "",
-	"usetls": false,
-	"compatmode": true,
-	"keepalive": "60",
-	"cleansession": true,
-	"willTopic": "",
-	"willQos": "0",
-	"willPayload": "",
-	"birthTopic": "",
-	"birthQos": "0",
-	"birthPayload": ""
-},
-{
-	"id": "14f8ecda.da7ac3",
-	"type": "influxdb",
-	"z": "",
-	"hostname": "nodered_influxdb_1",
-	"port": "8086",
-	"protocol": "http",
-	"database": "testdb",
-	"name": "",
-	"usetls": false,
-	"tls": ""
-},
-{
-	"id": "bfb1bac9.8bec48",
-	"type": "inject",
-	"z": "1a0e96ef.e56ed9",
-	"name": "",
-	"topic": "",
-	"payload": "",
-	"payloadType": "date",
-	"repeat": "5",
-	"crontab": "",
-	"once": true,
-	"onceDelay": 0.1,
-	"x": 130,
-	"y": 60,
-	"wires": [["969f3835.9351a8"]]
-},
-{
-	"id": "969f3835.9351a8",
-	"type": "function",
-	"z": "1a0e96ef.e56ed9",
-	"name": "to sensor message",
-	"func": "msg.payload = 500 * Math.random()\n\nreturn msg;",
-	"outputs": 1,
-	"noerr": 0,
-	"x": 380,
-	"y": 60,
-	"wires": [["becf623d.71743"]]
-},
-{
-	"id": "becf623d.71743",
-	"type": "mqtt out",
-	"z": "1a0e96ef.e56ed9",
-	"name": "",
-	"topic": "sensor1",
-	"qos": "",
-	"retain": "",
-	"broker": "be155f99.763df",
-	"x": 630,
-	"y": 60,
-	"wires": []
-},
-{
-	"id": "f227619c.81ad2",
-	"type": "mqtt in",
-	"z": "a7084d9a.5fab9",
-	"name": "",
-	"topic": "sensor1",
-	"qos": "2",
-	"broker": "be155f99.763df",
-	"x": 100,
-	"y": 60,
-	"wires": [["55375543.5b6f5c"]]
-},
-{
-	"id": "55375543.5b6f5c",
-	"type": "influxdb out",
-	"z": "a7084d9a.5fab9",
-	"influxdb": "14f8ecda.da7ac3",
-	"name": "",
-	"measurement": "sensor1",
-	"precision": "",
-	"retentionPolicy": "",
-	"x": 380,
-	"y": 60,
-	"wires": []
-}]
+[
+	{
+		"id": "1a0e96ef.e56ed9",
+		"type": "tab",
+		"label": "Sensor to MQTT",
+		"disabled": false,
+		"info": ""
+	},
+	{
+		"id": "a7084d9a.5fab9",
+		"type": "tab",
+		"label": "MQTT to InfluxDB",
+		"disabled": false,
+		"info": ""
+	},
+	{
+		"id": "be155f99.763df",
+		"type": "mqtt-broker",
+		"z": "",
+		"name": "nodered_mosquitto_1",
+		"broker": "nodered_mosquitto_1",
+		"port": "1883",
+		"clientid": "",
+		"usetls": false,
+		"compatmode": true,
+		"keepalive": "60",
+		"cleansession": true,
+		"willTopic": "",
+		"willQos": "0",
+		"willPayload": "",
+		"birthTopic": "",
+		"birthQos": "0",
+		"birthPayload": ""
+	},
+	{
+		"id": "14f8ecda.da7ac3",
+		"type": "influxdb",
+		"z": "",
+		"hostname": "nodered_influxdb_1",
+		"port": "8086",
+		"protocol": "http",
+		"database": "testdb",
+		"name": "",
+		"usetls": false,
+		"tls": ""
+	},
+	{
+		"id": "bfb1bac9.8bec48",
+		"type": "inject",
+		"z": "1a0e96ef.e56ed9",
+		"name": "",
+		"topic": "",
+		"payload": "",
+		"payloadType": "date",
+		"repeat": "5",
+		"crontab": "",
+		"once": true,
+		"onceDelay": 0.1,
+		"x": 130,
+		"y": 60,
+		"wires": [
+			[
+				"148a4c5d.34cf14"
+			]
+		]
+	},
+	{
+		"id": "becf623d.71743",
+		"type": "mqtt out",
+		"z": "1a0e96ef.e56ed9",
+		"name": "",
+		"topic": "sensor1",
+		"qos": "",
+		"retain": "",
+		"broker": "be155f99.763df",
+		"x": 600,
+		"y": 60,
+		"wires": []
+	},
+	{
+		"id": "f227619c.81ad2",
+		"type": "mqtt in",
+		"z": "a7084d9a.5fab9",
+		"name": "",
+		"topic": "sensor1",
+		"qos": "2",
+		"broker": "be155f99.763df",
+		"x": 100,
+		"y": 60,
+		"wires": [
+			[
+				"55375543.5b6f5c"
+			]
+		]
+	},
+	{
+		"id": "55375543.5b6f5c",
+		"type": "influxdb out",
+		"z": "a7084d9a.5fab9",
+		"influxdb": "14f8ecda.da7ac3",
+		"name": "",
+		"measurement": "sensor1",
+		"precision": "",
+		"retentionPolicy": "",
+		"x": 380,
+		"y": 60,
+		"wires": []
+	},
+	{
+		"id": "148a4c5d.34cf14",
+		"type": "random",
+		"z": "1a0e96ef.e56ed9",
+		"name": "",
+		"low": "1",
+		"high": "500",
+		"inte": "true",
+		"property": "payload",
+		"x": 360,
+		"y": 60,
+		"wires": [
+			[
+				"becf623d.71743"
+			]
+		]
+	}
+]

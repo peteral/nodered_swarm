@@ -1,6 +1,7 @@
 #!/bin/bash
 # ---------------------------------------------------------
 # prerequisites - initialized swarm
+# docker swarm init
 # ---------------------------------------------------------
 
 # config
@@ -11,7 +12,8 @@ export REGISTRY=localhost:$REGISTRY_PORT
 docker service create --replicas 1 --name registry -p $REGISTRY_PORT:5000 registry:latest
 
 # push used images to swarm registry
-docker build -t $REGISTRY/peteral/nodered:latest ./nodered
+docker build -t $REGISTRY/peteral/nodered ./nodered
+docker push $REGISTRY/peteral/nodered
 
 docker pull eclipse-mosquitto
 docker tag  eclipse-mosquitto $REGISTRY/eclipse-mosquitto
@@ -32,10 +34,13 @@ docker service create --replicas 1 --name influxdb  -p 8086:8086                
 docker service create --replicas 1 --name grafana   -p 3000:3000                $REGISTRY/grafana/grafana
 
 # create influx database testdb
-curl -X POST 'http://localhost:8086/db?u=root&p=root' -d '{"name" : "testdb"}'
+curl -X POST 'http://localhost:8086/query?pretty=true' --data-urlencode "q=create database testdb"
+
+# import grafana data source
 
 # import grafana dashboard
-export dashboard='{ "dashboard": {' `cat dashboard.json` ' }, "overwrite" : false } '
-curl -X POST 'http://localhost:3000/api/dashboards/db' -H "Content-Type: application/json" -d $dashboard
+export dashboard=`cat dashboard.json`
+export request="{ \"dashboard\": $dashboard, \"overwrite\" : false } "
+curl -X POST 'http://admin:admin@localhost:3000/api/dashboards/db' -H "Content-Type: application/json" -d "$request"
 
 # import nodered flows

@@ -32,4 +32,29 @@ Access:
 
 # storage
 
-The volumes are stored on distributed block devices (DRBD).
+The configuration data is stored in docker volumes which are in turn stored on a distributed block device (DRBD).
+```
+            -----------      -----------       -----------
+            | nodered |      | nodered |       | nodered | docker service
+            -----+-----      -----+-----       -----+-----
+                 |                |                 |
+          -------+-------  -------+--------  -------+-------
+          | nodered-vol |  | influxdb-vol |  | grafana-vol | docker volume
+          -------+-------  -------+--------  -------+-------
+                 |                |                 |
+                 +----------------+------------------
+                 |
+        ---------+-----------
+        | /dev/nodered-drbd | DRBD volume (replicated on both hosts)
+        ---------+-----------
+                 |
+                 +-------------------------------------
+                 |                                    |
+    -------------+---------------        -------------+---------------
+    | /dev/gigby-v01-vg/nodered |        | /dev/gigby-v02-vg/nodered | LVM vol. 
+    -------------+---------------        -------------+---------------
+                 |                                    |
+           ------+------                        ------+------
+           | /dev/sda2 |                        | /dev/sda2 |  physical partition
+           -------------                        -------------
+```

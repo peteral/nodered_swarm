@@ -24,6 +24,7 @@
 export REGISTRY_PORT=5000
 export REGISTRY=localhost:$REGISTRY_PORT
 
+# create isolated overlay network for our services
 docker network create --driver overlay nodered
 
 # setup registry service
@@ -55,6 +56,8 @@ docker service create --network nodered --replicas 1 --name grafana   -p 3000:30
 curl -X POST 'http://localhost:8086/query?pretty=true' --data-urlencode "q=create database testdb"
 
 # import grafana data source
+export datasource=`cat datasource.json`
+curl -X POST 'http://admin:admin@localhost:3000/api/datasources' -H "Content-Type: application/json" -d "$datasource"
 
 # import grafana dashboard
 export dashboard=`cat dashboard.json`

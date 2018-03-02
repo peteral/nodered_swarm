@@ -1,0 +1,7 @@
+{
+    "name": "sensor1",
+    "type": "influxdb",
+    "access": "proxy",
+    "url": "http://influxdb:8086",
+    "database": "testdb"
+}

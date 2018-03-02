@@ -7,10 +7,10 @@
 #
 # -------------------------------+------------------------ host
 #                                |
-#                       ---------+---------
-#                       | docker_gwbridge |
-#                       ---------+---------
-#                                |
+# ------------          ---------+---------
+# | registry |          | docker_gwbridge |
+# -----+------          ---------+---------
+#      | 5000                    |
 # -----+---------------+---------+----+-------------+----- nodered
 #      | 80            | 1883, 9001   | 8086        | 3000
 # -----+-----   -------+-----   ------+-----   -----+-----
@@ -52,7 +52,7 @@ docker push $REGISTRY/grafana/grafana
 
 echo "-> create nodered service"
 docker service create --network nodered --replicas 1 --name nodered   -p 80:1880                  $REGISTRY/peteral/nodered
-echo "-> create mosquittod service"
+echo "-> create mosquitto service"
 docker service create --network nodered --replicas 1 --name mosquitto -p 1883:1883 -p 9001:9001   $REGISTRY/eclipse-mosquitto
 echo "-> create influxdb service"
 docker service create --network nodered --replicas 1 --name influxdb  -p 8086:8086                $REGISTRY/influxdb
@@ -68,7 +68,8 @@ curl -X POST 'http://admin:admin@localhost:3000/api/datasources' -H "Content-Typ
 
 echo "-> create grafana dashboard"
 export dashboard=`cat grafana/dashboard.json`
-export request="{ \"dashboard\": $dashboard, \"overwrite\" : true } "
+
+export request="{ \"dashboard\": $dashboard } "
 curl -X POST 'http://admin:admin@localhost:3000/api/dashboards/db' -H "Content-Type: application/json" -d "$request"
 
 echo "-> import nodered flows"

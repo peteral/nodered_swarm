@@ -2,6 +2,7 @@
   "annotations": {
     "list": [
       {
+        "$$hashKey": "object:469",
         "builtIn": 1,
         "datasource": "-- Grafana --",
         "enable": true,
@@ -55,7 +56,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "$$hashKey": "object:239",
+          "$$hashKey": "object:284",
           "groupBy": [],
           "measurement": "sensor1",
           "orderByTime": "ASC",
@@ -76,9 +77,9 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
+      "timeFrom": "1h",
       "timeShift": null,
-      "title": "Sensor 1 History",
+      "title": "History",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -112,7 +113,6 @@
       ]
     }
   ],
-  "refresh": false,
   "schemaVersion": 16,
   "style": "dark",
   "tags": [],
@@ -120,8 +120,8 @@
     "list": []
   },
   "time": {
-    "from": "now/d",
-    "to": "now/d"
+    "from": "now-6h",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -149,7 +149,7 @@
     ]
   },
   "timezone": "",
-  "title": "Sensor 1 history",
-  "uid": "_u2efv6kk",
-  "version": 2
+  "title": "Sensor dashboard",
+  "uid": "a3uCcPezk",
+  "version": 3
 }

@@ -61,7 +61,7 @@ curl -X POST 'http://admin:admin@localhost:3000/api/datasources' -H "Content-Typ
 
 # import grafana dashboard
 export dashboard=`cat dashboard.json`
-export request="{ \"dashboard\": $dashboard, \"overwrite\" : false } "
+export request="{ \"dashboard\": $dashboard, \"overwrite\" : true } "
 curl -X POST 'http://admin:admin@localhost:3000/api/dashboards/db' -H "Content-Type: application/json" -d "$request"
 
 # import nodered flows

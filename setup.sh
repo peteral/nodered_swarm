@@ -56,14 +56,14 @@ docker service create --network nodered --replicas 1 --name grafana   -p 3000:30
 curl -X POST 'http://localhost:8086/query?pretty=true' --data-urlencode "q=create database testdb"
 
 # import grafana data source
-export datasource=`cat datasource.json`
+export datasource=`cat grafana/datasource.json`
 curl -X POST 'http://admin:admin@localhost:3000/api/datasources' -H "Content-Type: application/json" -d "$datasource"
 
 # import grafana dashboard
-export dashboard=`cat dashboard.json`
-export request="{ \"dashboard\": $dashboard, \"overwrite\" : false } "
+export dashboard=`cat grafana/dashboard.json`
+export request="{ \"dashboard\": $dashboard, \"overwrite\" : true } "
 curl -X POST 'http://admin:admin@localhost:3000/api/dashboards/db' -H "Content-Type: application/json" -d "$request"
 
 # import nodered flows
-export flows=`cat flows.json`
+export flows=`cat nodered/flows.json`
 curl -X POST 'http://localhost/flows' -H "Content-Type: application/json" -d "$flows"

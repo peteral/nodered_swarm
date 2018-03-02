@@ -1,30 +1,4 @@
 #!/bin/bash
-# ---------------------------------------------------------
-# prerequisites - initialized swarm
-# docker swarm init
-# ---------------------------------------------------------
-# Network configuration:
-#
-# -------------------------------+------------------------ host
-#                                |
-# ------------          ---------+---------
-# | registry |          | docker_gwbridge |
-# -----+------          ---------+---------
-#      | 5000                    |
-# -----+---------------+---------+----+-------------+----- nodered
-#      | 80            | 1883, 9001   | 8086        | 3000
-# -----+-----   -------+-----   ------+-----   -----+-----
-# | nodered |   | mosquitto |   | influxdb |   | grafana |
-# -----------   -------------   ------------   -----------
-#
-# service names can be used as host names within containers
-# ---------------------------------------------------------
-
-# Problem 
-# - configuration only stored within running container, no config after fail-over
-# - let's have a look at shared volumes
-#   - fail-over - service will only be running on one node
-#   - create volume on all nodes as distributed file system
 
 # config
 export REGISTRY_PORT=5000

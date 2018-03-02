@@ -17,6 +17,7 @@
 # | nodered |   | mosquitto |   | influxdb |   | grafana |
 # -----------   -------------   ------------   -----------
 #
+# service names can be used as host names within containers
 # ---------------------------------------------------------
 
 # config

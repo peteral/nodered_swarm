@@ -1,0 +1,126 @@
+[
+    {
+        "id": "5ab950e2.0be86",
+        "type": "tab",
+        "label": "Sensor to MQTT",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "1d27d59e.fe536a",
+        "type": "tab",
+        "label": "MQTT to InfluxDB",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "b6ba899f.b693b8",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "mosquitto",
+        "broker": "mosquitto",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "1e3f7d1.1821d83",
+        "type": "influxdb",
+        "z": "",
+        "hostname": "influxdb",
+        "port": "8086",
+        "protocol": "http",
+        "database": "testdb",
+        "name": "",
+        "usetls": false,
+        "tls": ""
+    },
+    {
+        "id": "4adc2602.5ed668",
+        "type": "inject",
+        "z": "5ab950e2.0be86",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "fb6dc3bd.f2cd3"
+            ]
+        ]
+    },
+    {
+        "id": "2de7fb49.1bfdc4",
+        "type": "mqtt out",
+        "z": "5ab950e2.0be86",
+        "name": "",
+        "topic": "sensor1",
+        "qos": "",
+        "retain": "",
+        "broker": "b6ba899f.b693b8",
+        "x": 600,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "e4276809.0010a8",
+        "type": "mqtt in",
+        "z": "1d27d59e.fe536a",
+        "name": "",
+        "topic": "sensor1",
+        "qos": "2",
+        "broker": "b6ba899f.b693b8",
+        "x": 100,
+        "y": 60,
+        "wires": [
+            [
+                "ba828400.822e88"
+            ]
+        ]
+    },
+    {
+        "id": "ba828400.822e88",
+        "type": "influxdb out",
+        "z": "1d27d59e.fe536a",
+        "influxdb": "1e3f7d1.1821d83",
+        "name": "",
+        "measurement": "sensor1",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 380,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "fb6dc3bd.f2cd3",
+        "type": "random",
+        "z": "5ab950e2.0be86",
+        "name": "",
+        "low": "1",
+        "high": "500",
+        "inte": "true",
+        "property": "payload",
+        "x": 360,
+        "y": 60,
+        "wires": [
+            [
+                "2de7fb49.1bfdc4"
+            ]
+        ]
+    }
+]

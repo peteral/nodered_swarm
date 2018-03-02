@@ -62,3 +62,5 @@ export request="{ \"dashboard\": $dashboard, \"overwrite\" : false } "
 curl -X POST 'http://admin:admin@localhost:3000/api/dashboards/db' -H "Content-Type: application/json" -d "$request"
 
 # import nodered flows
+export flows=`cat flows.json`
+curl -X POST 'http://localhost/flows' -H "Content-Type: application/json" -d "$flows"

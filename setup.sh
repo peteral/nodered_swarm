@@ -64,14 +64,13 @@ curl -X POST 'http://localhost:8086/query?pretty=true' --data-urlencode "q=creat
 
 echo "-> create grafana data source"
 export datasource=`cat grafana/datasource.json`
-curl -X POST 'http://admin:admin@localhost:3000/api/datasources' -H "Content-Type: application/json" -d "$datasource"
+curl -X POST 'http://admin:admin@localhost:3000/api/datasources' -H "Content-Type: application/json" --data-raw "$datasource"
 
 echo "-> create grafana dashboard"
 export dashboard=`cat grafana/dashboard.json`
-
 export request="{ \"dashboard\": $dashboard } "
-curl -X POST 'http://admin:admin@localhost:3000/api/dashboards/db' -H "Content-Type: application/json" -d "$request"
+curl -X POST 'http://admin:admin@localhost:3000/api/dashboards/db' -H "Content-Type: application/json" --data-raw "$request"
 
 echo "-> import nodered flows"
 export flows=`cat nodered/flows.json`
-curl -X POST 'http://localhost/flows' -H "Content-Type: application/json" -d "$flows"
+curl -X POST 'http://localhost/flows' -H "Content-Type: application/json" --data-raw "$flows"

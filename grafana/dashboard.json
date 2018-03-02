@@ -16,7 +16,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 1,
+  "id": null,
   "links": [],
   "panels": [
     {
@@ -150,6 +150,6 @@
   },
   "timezone": "",
   "title": "Sensor dashboard",
-  "uid": "a3uCcPezk",
+  "uid": "sensor-dashboard",
   "version": 3
 }

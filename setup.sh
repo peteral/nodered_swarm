@@ -42,7 +42,7 @@ docker service create \
     --replicas 1 \
     --name nodered \
     --publish 80:1880 \
-    --mount source=nodered-vol,destination=/data \
+    --mount source=/mnt/drbd1/nodered,destination=/data \
     $REGISTRY/peteral/nodered
 
 echo "-> create mosquitto service"
@@ -60,7 +60,7 @@ docker service create \
     --replicas 1 \
     --name influxdb \
     --publish 8086:8086 \
-    --mount source=influxdb-vol,destination=/var/lib/influxdb \
+    --mount source=/mnt/drbd1/influxdb,destination=/var/lib/influxdb \
     $REGISTRY/influxdb
 
 echo "-> create grafana service"
@@ -69,7 +69,7 @@ docker service create \
     --replicas 1 \
     --name grafana \
     --publish 3000:3000 \
-    --mount source=grafana-vol,destination=/var/lib/grafana \
+    --mount source=/mnt/drbd1/grafana,destination=/var/lib/grafana \
     $REGISTRY/grafana/grafana
 
 echo "-> create database"

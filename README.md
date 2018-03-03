@@ -7,6 +7,17 @@ Scope:
 * Second NodeRed flow subscribes to the MQTT topic and pushes measurements to InfluxDB
 * Grafana dashboard shows the measurement history
 
+# Conclusion
+
+Docker swarm is nice easy-to use orchestration system. It has a clever overlay network mechanism. The service discovery is simple - service name == hostname. Load-balancing is built-in. Distribution of services amongst nodes can be controlled via labels.
+
+The biggest drawback is no solution for distributed volumes and therefore failover of statefull services. Configuration data might be embedded into the docker image or mounted via NFS. However implementing databases this way will become a bit problematic.
+
+Following approach might work:
+* dedicated **datacenter** nodes possess shared storage
+  * either via fail-over (Pacemaker, GFS, DRBD)
+  * or distributed file system like Ceph, MooseFS
+
 # how to run
 
 Start:
@@ -114,5 +125,5 @@ Problem of the **primary/secondary** setup:
   ```
 
 **Double-primary setup**
-* requires cluster-capable file system - we try with GFS
-* 
+* is basically building a failover cluster
+* lt's have a look if other orchestration frameworks have some own abstraction for distributed volumes

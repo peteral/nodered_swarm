@@ -1,7 +1,16 @@
 resource nodered {
- handlers {
-    before-resync-target "/usr/lib/drbd/snapshot-resync-target-lvm.sh";
-    after-resync-target "/usr/lib/drbd/unsnapshot-resync-target-lvm.sh";
+  disk {
+	  fencing resource-and-stonith;
+  }
+  handlers {
+	  fence-peer		"/usr/lib/drbd/crm-fence-peer.sh";
+	  after-resync-target	"/usr/lib/drbd/crm-unfence-peer.sh";
+  }
+  net {
+    allow-two-primaries;
+    after-sb-0pri discard-zero-changes;
+    after-sb-1pri discard-secondary;
+    after-sb-2pri disconnect;
   }
   volume 0 {
     device    /dev/drbd1;

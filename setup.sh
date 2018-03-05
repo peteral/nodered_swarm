@@ -14,6 +14,7 @@ docker service create \
     --replicas 1 \
     --name registry \
     --publish $REGISTRY_PORT:5000 \
+    --mount source=registry-vol,destination=/var/lib/registry \
     registry:latest
 
 # push used images to swarm registry
